@@ -13,6 +13,34 @@ const config = {
   measurementId: "G-N5QLQDV94E",
 };
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  // get the user documentRef object from signing into google via firestore query
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  // this gives us a snapshot query
+  const snapShot = await userRef.get();
+  console.log(snapShot);
+  // use the exist property off of snapshot to tell if a user exist in our firestore db
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    // gives us current date
+    const createdAt = new Date();
+    // userRef is a documentRef obj which has properties that allows you to make CRUD operations like get, set, delete, update
+    // set the new user in our firestore db
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (err) {
+      console.log("error creating user", err.message);
+    }
+  }
+  return userRef;
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
