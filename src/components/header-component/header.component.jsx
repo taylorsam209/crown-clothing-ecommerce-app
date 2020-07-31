@@ -11,7 +11,6 @@ import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { createStructuredSelector } from "reselect";
 
 const Header = ({ currentUser, hidden }) => {
-  console.log("wtf", currentUser);
   return (
     <div className="header">
       <Link to="/">
