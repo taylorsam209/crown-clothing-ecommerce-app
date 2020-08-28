@@ -17,6 +17,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
   // get the user documentRef object from signing into google via firestore query
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+  console.log("user", userRef);
   // this gives us a snapshot query
   const snapShot = await userRef.get();
   // use the exist property off of snapshot to tell if a user exist in our firestore db
@@ -37,6 +38,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       console.log("error creating user", err.message);
     }
   }
+  console.log("userRef", userRef);
   return userRef;
 };
 
