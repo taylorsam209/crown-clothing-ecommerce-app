@@ -3,7 +3,8 @@ import { firestore, convertCollectionsSnapShotToMap } from '../../firebase/fireb
 
 export const fetchCollectionsStart = (collectionsMap) => {
   return {
-    type: ShopActionTypes.FETCH_COLLECTIONS_START
+    type: ShopActionTypes.FETCH_COLLECTIONS_START,
+    action: null
   };
 };
 
